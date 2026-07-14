@@ -1,115 +1,44 @@
-
 /* =====================================
    Rubik Solver Pro
    app.js - Part 1
 ===================================== */
 
-window.addEventListener("DOMContentLoaded", () => {
+const FACE_NAMES = [
+    "Top (U)",
+    "Right (R)",
+    "Front (F)",
+    "Bottom (D)",
+    "Left (L)",
+    "Back (B)"
+];
 
-    console.log("Rubik Solver Pro Started");
+let currentFace = 0;
 
-    const solutionOutput = document.getElementById("solutionOutput");
+const wizard = document.getElementById("wizard");
+const solveScreen = document.getElementById("solveScreen");
 
-    if (solutionOutput) {
-        solutionOutput.innerHTML =
-            "🟢 System Ready<br>Waiting for cube input...";
+const stepTitle = document.getElementById("stepTitle");
+const progressBar = document.getElementById("progressBar");
+
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+
+function updateWizardUI(){
+
+    stepTitle.textContent =
+        `Step ${currentFace + 1} / 6 • ${FACE_NAMES[currentFace]}`;
+
+    progressBar.style.width =
+        ((currentFace + 1) / 6 * 100) + "%";
+
+    prevBtn.disabled = currentFace === 0;
+
+    if(currentFace === 5){
+        nextBtn.textContent = "Finish ✓";
+    }else{
+        nextBtn.textContent = "Next ➜";
     }
-
-    // Theme Button
-    const themeBtn = document.getElementById("themeBtn");
-
-    if (themeBtn) {
-
-        themeBtn.addEventListener("click", () => {
-
-            document.body.classList.toggle("light-theme");
-
-            if (document.body.classList.contains("light-theme")) {
-                themeBtn.innerHTML = "☀️";
-            } else {
-                themeBtn.innerHTML = "🌙";
-            }
-
-        });
-
-    }
-
-    // Reset Button
-    const resetBtn = document.getElementById("resetBtn");
-
-    if (resetBtn) {
-
-        resetBtn.addEventListener("click", () => {
-
-            location.reload();
-
-        });
-
-    }
-
-});
-
-/* =====================================
-   Rubik Solver Pro
-   app.js - Part 2
-===================================== */
-
-// Move Counter
-let moveCount = 0;
-
-function updateMoveCount() {
-    const moveElement = document.getElementById("moveCount");
-    if (moveElement) {
-        moveElement.textContent = moveCount;
-    }
-}
-
-// Timer
-let seconds = 0;
-
-setInterval(() => {
-
-    seconds++;
-
-    const min = String(Math.floor(seconds / 60)).padStart(2, "0");
-    const sec = String(seconds % 60).padStart(2, "0");
-
-    const timer = document.getElementById("timer");
-
-    if (timer) {
-        timer.textContent = `${min}:${sec}`;
-    }
-
-}, 1000);
-
-// Validate Button
-const validateBtn = document.getElementById("validateBtn");
-
-if (validateBtn) {
-
-    validateBtn.addEventListener("click", () => {
-
-        document.getElementById("solutionOutput").innerHTML =
-            "✅ Cube validation feature will be added in the next update.";
-
-    });
 
 }
 
-// Solve Button
-const solveBtn = document.getElementById("solveBtn");
-
-if (solveBtn) {
-
-    solveBtn.addEventListener("click", () => {
-
-        moveCount = 20;
-
-        updateMoveCount();
-
-        document.getElementById("solutionOutput").innerHTML =
-            "🤖 Solver engine will be connected in the next update.<br><br>Example Solution:<br>R U R' U' F2";
-
-    });
-
-}
+updateWizardUI();
