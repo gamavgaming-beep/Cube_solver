@@ -98,3 +98,164 @@ margin-bottom:15px;
 font-size:20px;
 text-align:center;
 }
+
+/* =====================================
+   Rubik Solver Pro
+   Professional UI - Part 2
+===================================== */
+
+.cubeContainer{
+display:flex;
+justify-content:center;
+align-items:center;
+margin:30px 0;
+}
+
+#cubeEditor{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
+justify-items:center;
+align-items:start;
+}
+
+.cube-face{
+width:100%;
+max-width:300px;
+padding:18px;
+border-radius:18px;
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.10);
+backdrop-filter:blur(18px);
+}
+
+.cube-face h3{
+text-align:center;
+margin-bottom:15px;
+font-size:22px;
+font-weight:700;
+}
+
+.face-grid{
+display:grid;
+grid-template-columns:repeat(3,70px);
+grid-template-rows:repeat(3,70px);
+gap:8px;
+justify-content:center;
+}
+
+.sticker{
+width:70px;
+height:70px;
+border-radius:10px;
+border:2px solid rgba(255,255,255,.18);
+cursor:pointer;
+transition:.2s;
+}
+
+.sticker:hover{
+transform:scale(1.06);
+border-color:#60a5fa;
+box-shadow:0 0 15px rgba(96,165,250,.4);
+}
+
+.colorPicker{
+display:flex;
+justify-content:center;
+align-items:center;
+flex-wrap:wrap;
+gap:15px;
+margin:30px 0;
+}
+
+.color{
+width:52px;
+height:52px;
+border-radius:50%;
+border:3px solid rgba(255,255,255,.25);
+cursor:pointer;
+transition:.2s;
+}
+
+.color:hover{
+transform:scale(1.12);
+}
+
+.white{background:#ffffff;}
+.yellow{background:#ffd600;}
+.red{background:#ff3b30;}
+.orange{background:#ff9800;}
+.blue{background:#2196f3;}
+.green{background:#22c55e;}
+
+/* =====================================
+   Rubik Solver Pro
+   Professional UI - Part 3
+===================================== */
+
+#solutionOutput{
+min-height:120px;
+padding:15px;
+border-radius:12px;
+background:#111827;
+line-height:1.8;
+overflow:auto;
+}
+
+#moveCount,
+#timer{
+font-weight:bold;
+font-size:20px;
+color:#22c55e;
+}
+
+footer{
+margin-top:30px;
+padding:20px;
+text-align:center;
+color:#9ca3af;
+}
+
+@media(max-width:1000px){
+
+main{
+grid-template-columns:1fr;
+}
+
+#cubeEditor{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:25px;
+}
+
+.cube-face{
+max-width:330px;
+width:100%;
+}
+
+.face-grid{
+grid-template-columns:repeat(3,65px);
+grid-template-rows:repeat(3,65px);
+}
+
+.sticker{
+width:65px;
+height:65px;
+}
+
+.logo{
+font-size:22px;
+}
+
+header{
+padding:15px;
+}
+
+.card button{
+width:100%;
+font-size:16px;
+padding:14px;
+}
+
+}
