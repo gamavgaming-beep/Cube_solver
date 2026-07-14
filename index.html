@@ -1,51 +1,191 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>Rubik's Cube Solver</title>
-    <!-- Kociemba.js லைப்ரரியை இணையத்திலிருந்து இணைக்கிறோம் -->
-    <script src="https://cdn.jsdelivr.net/npm/kociemba@1.0.0/dist/kociemba.min.js"></script>
-    <style>
-        body { font-family: sans-serif; text-align: center; }
-        .grid { display: inline-grid; grid-template-columns: repeat(3, 50px); gap: 5px; margin-bottom: 20px; }
-        .cell { width: 50px; height: 50px; border: 1px solid #000; cursor: pointer; }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Rubik's Cube Solver Pro</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
 </head>
+
 <body>
-    <h1>Rubik's Cube Solver</h1>
-    <p>கியூப் நிறங்களை உள்ளிட்டு Solve பட்டனை அழுத்தவும்.</p>
-    
-    <div class="grid" id="cubeGrid"></div>
-    <button onclick="solveMyCube()">Solve Cube</button>
-    <h2 id="solution"></h2>
 
-    <script>
-        // 1. 9 கட்டங்களை உருவாக்குதல்
-        const grid = document.getElementById('cubeGrid');
-        for (let i = 0; i < 9; i++) {
-            let div = document.createElement('div');
-            div.className = 'cell';
-            div.style.backgroundColor = 'white';
-            div.onclick = function() { 
-                this.style.backgroundColor = (this.style.backgroundColor === 'white') ? 'red' : 'white'; 
-            };
-            grid.appendChild(div);
-        }
+<div class="background"></div>
 
-        // 2. சால்வ் செய்யும் பங்க்ஷன்
-        function solveMyCube() {
-            // கியூப் நிலையை Kociemba-விற்கு புரியும் வகையில் மாற்றுதல்
-            // இது ஒரு உதாரணம் மட்டுமே, முழு கியூபிற்கும் 54 கட்டங்கள் தேவை
-            const cubeString = "UUUUUUUUURRRRRRRRRFFFFFFFFFDDDDDDDDDLLLLLLLLLBBBBBBBBB";
-            
-            try {
-                // Kociemba.solve() பங்க்ஷனை அழைத்தல்
-                const solution = kociemba.solve(cubeString);
-                document.getElementById("solution").innerText = "தீர்வு: " + solution;
-            } catch (e) {
-                document.getElementById("solution").innerText = "தவறான உள்ளீடு, மீண்டும் முயலவும்!";
-            }
-        }
-    </script>
+<header>
+
+    <div class="logo">
+
+        🧩 Rubik Solver Pro
+
+    </div>
+
+    <nav>
+
+        <button id="themeBtn">
+            🌙
+        </button>
+
+    </nav>
+
+</header>
+
+<main>
+
+<section class="leftPanel">
+
+<h2>
+
+3×3 Cube Editor
+
+</h2>
+
+<div class="cubeContainer">
+
+<div id="cubeEditor">
+
+<!-- JavaScript creates 54 stickers -->
+
+</div>
+
+</div>
+
+<div class="colorPicker">
+
+<button class="color white"
+        data-color="white"></button>
+
+<button class="color yellow"
+        data-color="yellow"></button>
+
+<button class="color red"
+        data-color="red"></button>
+
+<button class="color orange"
+        data-color="orange"></button>
+
+<button class="color blue"
+        data-color="blue"></button>
+
+<button class="color green"
+        data-color="green"></button>
+
+</div>
+
+</section>
+
+<section class="rightPanel">
+
+<div class="card">
+
+<h3>
+
+Cube Controls
+
+</h3>
+
+<button id="validateBtn">
+
+Validate Cube
+
+</button>
+
+<button id="solveBtn">
+
+Solve Cube
+
+</button>
+
+<button id="resetBtn">
+
+Reset
+
+</button>
+
+<button id="scrambleBtn">
+
+Random Scramble
+
+</button>
+
+</div>
+
+<div class="card">
+
+<h3>
+
+Solution
+
+</h3>
+
+<div id="solutionOutput">
+
+Waiting...
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>
+
+Statistics
+
+</h3>
+
+<p>
+
+Moves :
+<span id="moveCount">
+
+0
+
+</span>
+
+</p>
+
+<p>
+
+Time :
+<span id="timer">
+
+00:00
+
+</span>
+
+</p>
+
+</div>
+
+</section>
+
+</main>
+
+<footer>
+
+Rubik Solver Pro © 2026
+
+</footer>
+
+<script src="cube.js"></script>
+<script src="validator.js"></script>
+<script src="solver.js"></script>
+<script src="script.js"></script>
+
 </body>
 </html>
-
