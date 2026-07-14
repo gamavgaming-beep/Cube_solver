@@ -42,3 +42,61 @@ function updateWizardUI(){
 }
 
 updateWizardUI();
+
+/* =====================================
+   Rubik Solver Pro
+   app.js - Part 2
+===================================== */
+
+prevBtn.addEventListener("click", () => {
+
+    if(currentFace > 0){
+
+        currentFace--;
+
+        updateWizardUI();
+
+        if(typeof loadFace === "function"){
+            loadFace(currentFace);
+        }
+
+    }
+
+});
+
+nextBtn.addEventListener("click", () => {
+
+    if(currentFace < 5){
+
+        currentFace++;
+
+        updateWizardUI();
+
+        if(typeof loadFace === "function"){
+            loadFace(currentFace);
+        }
+
+    }else{
+
+        wizard.classList.add("hidden");
+
+        solveScreen.classList.remove("hidden");
+
+        document.getElementById("solveStatus").textContent =
+        "Ready to Solve";
+
+        if(typeof startSolver === "function"){
+            startSolver();
+        }
+
+    }
+
+});
+
+window.addEventListener("DOMContentLoaded", () => {
+
+    if(typeof loadFace === "function"){
+        loadFace(0);
+    }
+
+});
