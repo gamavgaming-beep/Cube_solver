@@ -1,6 +1,7 @@
 /* =====================================
    Rubik Solver Pro
-   Professional UI - Part 1
+   Professional UI
+   Part 1
 ===================================== */
 
 *{
@@ -15,7 +16,7 @@ scroll-behavior:smooth;
 }
 
 body{
-background:#0b1220;
+background:#0b1020;
 color:#fff;
 min-height:100vh;
 overflow-x:hidden;
@@ -23,39 +24,35 @@ overflow-x:hidden;
 
 .background{
 position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
+inset:0;
 background:
-radial-gradient(circle at top left,#1e40af 0%,transparent 35%),
-radial-gradient(circle at bottom right,#7c3aed 0%,transparent 35%),
+radial-gradient(circle at top left,#2563eb33 0%,transparent 35%),
+radial-gradient(circle at bottom right,#7c3aed33 0%,transparent 35%),
 linear-gradient(135deg,#050816,#0b1220);
 z-index:-1;
 }
 
-header{
-position:sticky;
-top:0;
-z-index:1000;
+.app{
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+
+.topbar{
 display:flex;
 justify-content:space-between;
 align-items:center;
-padding:15px 20px;
-background:rgba(255,255,255,.08);
-backdrop-filter:blur(18px);
-border-bottom:1px solid rgba(255,255,255,.1);
+padding:18px 0;
 }
 
 .logo{
-font-size:26px;
+font-size:28px;
 font-weight:700;
-color:#fff;
 }
 
 #themeBtn{
-width:55px;
-height:55px;
+width:52px;
+height:52px;
 border:none;
 border-radius:50%;
 background:#2563eb;
@@ -69,241 +66,244 @@ transition:.3s;
 transform:scale(1.08);
 }
 
-main{
-display:grid;
-grid-template-columns:1fr 360px;
-gap:25px;
-padding:25px;
-}
-
-.leftPanel,
-.rightPanel{
-display:flex;
-flex-direction:column;
-gap:20px;
-}
-
-.card,
-.cube-face{
+#wizard,
+#solveScreen{
 background:rgba(255,255,255,.06);
-border:1px solid rgba(255,255,255,.1);
-border-radius:20px;
+border:1px solid rgba(255,255,255,.08);
+border-radius:22px;
 backdrop-filter:blur(20px);
-padding:20px;
+padding:24px;
+margin-top:20px;
 }
 
-.card h3,
-.cube-face h3{
-margin-bottom:15px;
-font-size:20px;
+.wizard-header{
 text-align:center;
+margin-bottom:25px;
+}
+
+.wizard-header h2{
+font-size:30px;
+margin-bottom:10px;
+}
+
+#stepTitle{
+color:#cbd5e1;
+font-size:16px;
 }
 
 /* =====================================
-   Rubik Solver Pro
-   Professional UI - Part 2
+   Part 2
+   Progress + Cube Editor
 ===================================== */
 
-.cubeContainer{
+.progress{
+width:100%;
+height:12px;
+background:rgba(255,255,255,.08);
+border-radius:999px;
+overflow:hidden;
+margin-bottom:30px;
+}
+
+#progressBar{
+width:16.66%;
+height:100%;
+background:linear-gradient(90deg,#2563eb,#60a5fa);
+border-radius:999px;
+transition:.4s;
+}
+
+.cube-preview{
 display:flex;
 justify-content:center;
 align-items:center;
 margin:30px 0;
 }
 
-#cubeEditor{
+#faceEditor{
 display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:20px;
-justify-items:center;
-align-items:start;
-}
-
-.cube-face{
-width:100%;
-max-width:300px;
-padding:18px;
-border-radius:18px;
-background:rgba(255,255,255,.05);
-border:1px solid rgba(255,255,255,.10);
-backdrop-filter:blur(18px);
-}
-
-.cube-face h3{
-text-align:center;
-margin-bottom:15px;
-font-size:22px;
-font-weight:700;
-}
-
-.face-grid{
-display:grid;
-grid-template-columns:repeat(3,70px);
-grid-template-rows:repeat(3,70px);
+grid-template-columns:repeat(3,90px);
+grid-template-rows:repeat(3,90px);
 gap:8px;
-justify-content:center;
 }
 
 .sticker{
-width:70px;
-height:70px;
-border-radius:10px;
-border:2px solid rgba(255,255,255,.18);
+width:90px;
+height:90px;
+border-radius:12px;
+border:2px solid rgba(255,255,255,.15);
+background:#1f2937;
 cursor:pointer;
 transition:.2s;
 }
 
 .sticker:hover{
-transform:scale(1.06);
+transform:scale(1.05);
 border-color:#60a5fa;
-box-shadow:0 0 15px rgba(96,165,250,.4);
+box-shadow:0 0 15px rgba(96,165,250,.35);
 }
 
-.colorPicker{
+.color-picker{
 display:flex;
 justify-content:center;
 align-items:center;
 flex-wrap:wrap;
-gap:15px;
+gap:16px;
 margin:30px 0;
 }
 
 .color{
-width:52px;
-height:52px;
+width:58px;
+height:58px;
 border-radius:50%;
-border:3px solid rgba(255,255,255,.25);
+border:4px solid rgba(255,255,255,.25);
 cursor:pointer;
-transition:.2s;
+transition:.25s;
 }
 
 .color:hover{
 transform:scale(1.12);
+border-color:#fff;
 }
 
 .white{background:#ffffff;}
 .yellow{background:#ffd600;}
 .red{background:#ff3b30;}
-.orange{background:#ff9800;}
+.orange{background:#ff8c00;}
 .blue{background:#2196f3;}
 .green{background:#22c55e;}
 
 /* =====================================
-   Rubik Solver Pro
-   Professional UI - Part 3
+   Part 3
+   Buttons + Solve Screen + Responsive
 ===================================== */
 
-#solutionOutput{
-min-height:120px;
-padding:15px;
-border-radius:12px;
-background:#111827;
-line-height:1.8;
-overflow:auto;
+.wizard-buttons,
+.viewer-buttons{
+display:flex;
+justify-content:space-between;
+gap:15px;
+margin-top:25px;
 }
 
-#moveCount,
-#timer{
-font-weight:bold;
-font-size:20px;
-color:#22c55e;
+.wizard-buttons button,
+.viewer-buttons button{
+flex:1;
+padding:16px;
+border:none;
+border-radius:14px;
+background:#2563eb;
+color:#fff;
+font-size:16px;
+font-weight:600;
+cursor:pointer;
+transition:.3s;
+}
+
+.wizard-buttons button:hover,
+.viewer-buttons button:hover{
+background:#3b82f6;
+transform:translateY(-2px);
+}
+
+.solve-card,
+.stats-card{
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.08);
+border-radius:18px;
+padding:20px;
+margin-bottom:20px;
+}
+
+.solve-card h2,
+.stats-card h3{
+margin-bottom:15px;
+text-align:center;
+}
+
+#moveInfo{
+text-align:center;
+font-size:18px;
+color:#cbd5e1;
+margin-bottom:10px;
+}
+
+#currentMove{
+text-align:center;
+font-size:42px;
+color:#60a5fa;
+margin-bottom:20px;
+}
+
+#viewer{
+display:flex;
+justify-content:center;
+align-items:center;
+min-height:320px;
+margin-bottom:20px;
+}
+
+#viewerCube{
+width:300px;
+height:300px;
+border-radius:18px;
+background:rgba(255,255,255,.05);
+border:2px dashed rgba(255,255,255,.15);
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.stats-card p{
+display:flex;
+justify-content:space-between;
+margin:12px 0;
+font-size:17px;
 }
 
 footer{
-margin-top:30px;
-padding:20px;
 text-align:center;
-color:#9ca3af;
+padding:30px 10px;
+color:#94a3b8;
+font-size:15px;
 }
 
-@media(max-width:1000px){
-
-main{
-grid-template-columns:1fr;
+.hidden{
+display:none;
 }
 
-#cubeEditor{
-display:flex;
-flex-direction:column;
-align-items:center;
-gap:25px;
-}
+/* Mobile */
 
-.cube-face{
-max-width:330px;
-width:100%;
-}
+@media (max-width:768px){
 
-.face-grid{
-grid-template-columns:repeat(3,65px);
-grid-template-rows:repeat(3,65px);
-}
-
-.sticker{
-width:65px;
-height:65px;
+.app{
+padding:15px;
 }
 
 .logo{
 font-size:22px;
 }
 
-header{
-padding:15px;
+#faceEditor{
+grid-template-columns:repeat(3,70px);
+grid-template-rows:repeat(3,70px);
 }
 
-.card button{
-width:100%;
-font-size:16px;
-padding:14px;
-}
-
-}
-
-...உன்னுடைய style.css code...
-
-}   <-- இது இப்போ இருக்கும் கடைசி line
-
-/* ===== Mobile Final Fix ===== */
-
-@media (max-width: 900px){
-
-header{
+.sticker{
+width:70px;
 height:70px;
-padding:10px 15px;
 }
 
-.logo{
-font-size:18px;
+.color{
+width:50px;
+height:50px;
 }
 
-#themeBtn{
-width:45px;
-height:45px;
-font-size:20px;
-}
-
-main{
-padding:15px;
-}
-
-.colorPicker{
-width:100%;
-display:flex;
-justify-content:center;
-flex-wrap:wrap;
-gap:12px;
-margin:20px 0;
-order:2;
-}
-
-.leftPanel{
-display:flex;
+.wizard-buttons,
+.viewer-buttons{
 flex-direction:column;
 }
 
-.cubeContainer{
-order:1;
-}
-
-}
+#viewerCube{
+width:240px;
+height:240px
