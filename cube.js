@@ -1,54 +1,113 @@
 /* =====================================
    Rubik Solver Pro
-   cube.js
+   cube.js - Part 1
 ===================================== */
 
-const faces = [
-  { id: "face-U", color: "white", name: "U" },
-  { id: "face-R", color: "red", name: "R" },
-  { id: "face-F", color: "green", name: "F" },
-  { id: "face-D", color: "yellow", name: "D" },
-  { id: "face-L", color: "orange", name: "L" },
-  { id: "face-B", color: "blue", name: "B" }
-];
+function loadFace(faceIndex){
 
-let selectedColor = "white";
+    const face = FACE_KEYS[faceIndex];
 
-document.querySelectorAll(".color").forEach(btn => {
-    btn.addEventListener("click", () => {
-        selectedColor = btn.dataset.color;
+    const editor = document.getElementById("faceEditor");
+
+    if(!editor) return;
+
+    editor.innerHTML = "";
+
+    editor.style.display = "grid";
+    editor.style.gridTemplateColumns = "repeat(3,90px)";
+    editor.style.gridTemplateRows = "repeat(3,90px)";
+    editor.style.gap = "10px";
+    editor.style.justifyContent = "center";
+
+    for(let i=0;i<9;i++){
+
+        const sticker = document.createElement("div");
+
+        sticker.className = "sticker";
+
+        sticker.dataset.face = face;
+
+        sticker.dataset.index = i;
+
+        sticker.style.background =
+            cubeState[face][i];
+
+        sticker.addEventListener("click",()=>{
+
+            cubeState[face][i] = selectedColor;
+
+            sticker.style.background = selectedColor;
+
+        });
+
+        editor.appendChild(sticker);
+
+    }
+
+}
+
+/* =====================================
+   Rubik Solver Pro
+   cube.js - Part 2
+===================================== */
+
+function refreshFace(){
+
+    loadFace(currentFace);
+
+}
+
+function setSticker(face,index,color){
+
+    cubeState[face][index]=color;
+
+}
+
+function getSticker(face,index){
+
+    return cubeState[face][index];
+
+}
+
+function fillFace(face,color){
+
+    for(let i=0;i<9;i++){
+
+        cubeState[face][i]=color;
+
+    }
+
+}
+
+function resetCurrentFace(){
+
+    const face=FACE_KEYS[currentFace];
+
+    fillFace(face,FACE_DEFAULT[face]);
+
+    refreshFace();
+
+}
+
+/* =====================================
+   Rubik Solver Pro
+   cube.js - Part 3
+===================================== */
+
+function resetCubeState(){
+
+    FACE_KEYS.forEach(face=>{
+
+        fillFace(face,FACE_DEFAULT[face]);
+
     });
-});
 
-window.addEventListener("DOMContentLoaded", () => {
+}
 
-    faces.forEach(face => {
+window.addEventListener("DOMContentLoaded",()=>{
 
-        const container = document.getElementById(face.id);
+    resetCubeState();
 
-        if (!container) return;
-
-        container.innerHTML = `
-            <h3>${face.name}</h3>
-            <div class="face-grid"></div>
-        `;
-
-        const grid = container.querySelector(".face-grid");
-
-        for (let i = 0; i < 9; i++) {
-
-            const sticker = document.createElement("div");
-
-            sticker.className = "sticker";
-            sticker.style.background = face.color;
-
-            sticker.addEventListener("click", () => {
-                sticker.style.background = selectedColor;
-            });
-
-            grid.appendChild(sticker);
-        }
-
-    });
+    loadFace(0);
 
 });
