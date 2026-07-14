@@ -307,3 +307,15 @@ flex-direction:column;
 #viewerCube{
 width:240px;
 height:240px
+
+   /* ===== Active Color ===== */
+
+.color.active{
+
+outline:4px solid #ffffff;
+
+transform:scale(1.15);
+
+box-shadow:0 0 20px rgba(255,255,255,.45);
+
+}
