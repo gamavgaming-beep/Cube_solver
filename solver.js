@@ -45,6 +45,8 @@ if (solveButton) {
 
         showSolution();
 
+       startAnimation(getDemoSolution());
+       
     });
 
 }
