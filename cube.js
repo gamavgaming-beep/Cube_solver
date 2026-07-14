@@ -1,66 +1,54 @@
 /* =====================================
    Rubik Solver Pro
-   cube.js - Part 1
+   cube.js
 ===================================== */
 
 const faces = [
-    "U",
-    "R",
-    "F",
-    "D",
-    "L",
-    "B"
+  { id: "face-U", name: "U", color: "white" },
+  { id: "face-R", name: "R", color: "red" },
+  { id: "face-F", name: "F", color: "green" },
+  { id: "face-D", name: "D", color: "yellow" },
+  { id: "face-L", name: "L", color: "orange" },
+  { id: "face-B", name: "B", color: "blue" }
 ];
-
-const defaultColors = {
-    U: "white",
-    R: "red",
-    F: "green",
-    D: "yellow",
-    L: "orange",
-    B: "blue"
-};
 
 let selectedColor = "white";
 
-// Color Picker
 document.querySelectorAll(".color").forEach(btn => {
     btn.addEventListener("click", () => {
         selectedColor = btn.dataset.color;
     });
 });
 
-// Create 54 Stickers
-faces.forEach(face => {
+window.addEventListener("DOMContentLoaded", () => {
 
-    const faceDiv = document.getElementById("face-" + face);
+    faces.forEach(face => {
 
-    if (!faceDiv) return;
+        const container = document.getElementById(face.id);
 
-    faceDiv.innerHTML = `
-        <h3>${face}</h3>
-        <div class="face-grid"></div>
-    `;
+        if (!container) return;
 
-    const grid = faceDiv.querySelector(".face-grid");
+        container.innerHTML = `
+            <h3>${face.name}</h3>
+            <div class="face-grid"></div>
+        `;
 
-    for (let i = 0; i < 9; i++) {
+        const grid = container.querySelector(".face-grid");
 
-        const sticker = document.createElement("div");
+        for (let i = 0; i < 9; i++) {
 
-        sticker.className = "sticker";
+            const sticker = document.createElement("div");
 
-        sticker.style.background = defaultColors[face];
+            sticker.className = "sticker";
+            sticker.style.background = face.color;
 
-        sticker.dataset.face = face;
-        sticker.dataset.index = i;
+            sticker.addEventListener("click", () => {
+                sticker.style.background = selectedColor;
+            });
 
-        sticker.addEventListener("click", () => {
-            sticker.style.background = selectedColor;
-        });
+            grid.appendChild(sticker);
+        }
 
-        grid.appendChild(sticker);
-
-    }
+    });
 
 });
