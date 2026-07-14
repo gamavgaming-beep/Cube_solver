@@ -227,3 +227,234 @@ if(solveBtn){
     });
 
 }
+
+/* =====================================
+   Rubik Solver Pro
+   script.js - Part 3
+===================================== */
+
+// -------- Cube Validation --------
+
+function validateCube(){
+
+    const count = {
+        white:0,
+        yellow:0,
+        red:0,
+        orange:0,
+        blue:0,
+        green:0
+    };
+
+    document.querySelectorAll(".sticker").forEach(sticker=>{
+
+        const color = sticker.style.background;
+
+        if(color.includes("255, 255, 255")) count.white++;
+        else if(color.includes("255, 214")) count.yellow++;
+        else if(color.includes("255, 59")) count.red++;
+        else if(color.includes("255, 152")) count.orange++;
+        else if(color.includes("33, 150")) count.blue++;
+        else if(color.includes("34, 197")) count.green++;
+
+    });
+
+    return count;
+
+}
+
+// -------- Random Scramble --------
+
+const MOVES = [
+"R","R'",
+"L","L'",
+"U","U'",
+"D","D'",
+"F","F'",
+"B","B'"
+];
+
+function randomScramble(length=20){
+
+    let result=[];
+
+    for(let i=0;i<length;i++){
+
+        result.push(
+            MOVES[Math.floor(Math.random()*MOVES.length)]
+        );
+
+    }
+
+    return result.join(" ");
+
+}
+
+// -------- Scramble Button --------
+
+if(scrambleBtn){
+
+scrambleBtn.addEventListener("click",()=>{
+
+const scramble=randomScramble();
+
+document.getElementById("solutionOutput").innerHTML=`
+<b>🔀 Scramble</b><br><br>
+${scramble}
+`;
+
+});
+
+}
+
+// -------- Validate Button --------
+
+if(validateBtn){
+
+validateBtn.addEventListener("click",()=>{
+
+const data=validateCube();
+
+document.getElementById("solutionOutput").innerHTML=`
+
+<b>✅ Cube Colors</b><br><br>
+
+⚪ White : ${data.white}<br>
+🟡 Yellow : ${data.yellow}<br>
+🔴 Red : ${data.red}<br>
+🟠 Orange : ${data.orange}<br>
+🔵 Blue : ${data.blue}<br>
+🟢 Green : ${data.green}
+
+`;
+
+});
+
+}
+
+// -------- Solve Button --------
+
+if(solveBtn){
+
+solveBtn.addEventListener("click",()=>{
+
+const demoSolution=[
+"R","U","R'","U'",
+"F2","L","D"
+];
+
+document.getElementById("solutionOutput").innerHTML=`
+
+<b>🤖 Demo Solution</b><br><br>
+
+${demoSolution.join(" ")}
+
+`;
+
+});
+
+}
+
+/* =====================================
+   Rubik Solver Pro
+   script.js - Part 4
+===================================== */
+
+// ---------- History ----------
+
+let history = [];
+let redoHistory = [];
+
+// Save current cube state
+function saveHistory(){
+
+    history.push(JSON.stringify(cubeState));
+
+    if(history.length > 100){
+        history.shift();
+    }
+
+    redoHistory = [];
+
+}
+
+// Undo
+function undoMove(){
+
+    if(history.length === 0) return;
+
+    redoHistory.push(JSON.stringify(cubeState));
+
+    const previous = JSON.parse(history.pop());
+
+    FACE_ORDER.forEach(face=>{
+        cubeState[face] = [...previous[face]];
+    });
+
+    loadCube();
+
+}
+
+// Redo
+function redoMove(){
+
+    if(redoHistory.length === 0) return;
+
+    history.push(JSON.stringify(cubeState));
+
+    const next = JSON.parse(redoHistory.pop());
+
+    FACE_ORDER.forEach(face=>{
+        cubeState[face] = [...next[face]];
+    });
+
+    loadCube();
+
+}
+
+// ---------- Local Save ----------
+
+function saveCube(){
+
+    localStorage.setItem(
+        "rubikCubeState",
+        JSON.stringify(cubeState)
+    );
+
+    document.getElementById("solutionOutput").innerHTML =
+    "💾 Cube state saved.";
+
+}
+
+// ---------- Local Load ----------
+
+function loadSavedCube(){
+
+    const data = localStorage.getItem("rubikCubeState");
+
+    if(!data) return;
+
+    const saved = JSON.parse(data);
+
+    FACE_ORDER.forEach(face=>{
+        cubeState[face] = [...saved[face]];
+    });
+
+    loadCube();
+
+    document.getElementById("solutionOutput").innerHTML =
+    "📂 Cube state loaded.";
+
+}
+
+// Auto load saved cube
+loadSavedCube();
+
+// Save history whenever a sticker changes
+document.addEventListener("click",(e)=>{
+
+    if(e.target.classList.contains("sticker")){
+        saveHistory();
+    }
+
+});
