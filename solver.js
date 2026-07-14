@@ -42,8 +42,7 @@ const solveButton = document.getElementById("solveBtn");
 if (solveButton) {
 
     solveButton.addEventListener("click", () => {
-
-        showSolution();
+       
 
        startAnimation(getDemoSolution());
        
