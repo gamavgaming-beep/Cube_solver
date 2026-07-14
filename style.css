@@ -386,3 +386,113 @@ height:70px;
 }
 
 }
+/* =====================================
+   Rubik Solver Pro
+   Face Layout
+===================================== */
+
+#cubeEditor{
+
+display:grid;
+
+grid-template-columns:repeat(3,1fr);
+
+gap:20px;
+
+justify-items:center;
+
+align-items:start;
+
+}
+
+.cube-face{
+
+background:rgba(255,255,255,.05);
+
+border:1px solid rgba(255,255,255,.12);
+
+border-radius:16px;
+
+padding:15px;
+
+width:100%;
+
+max-width:280px;
+
+backdrop-filter:blur(12px);
+
+}
+
+.cube-face h3{
+
+text-align:center;
+
+margin-bottom:12px;
+
+font-size:18px;
+
+}
+
+.face-grid{
+
+display:grid;
+
+grid-template-columns:repeat(3,70px);
+
+grid-template-rows:repeat(3,70px);
+
+gap:6px;
+
+justify-content:center;
+
+}
+
+.face-grid .sticker{
+
+width:70px;
+
+height:70px;
+
+border-radius:8px;
+
+border:2px solid rgba(255,255,255,.25);
+
+cursor:pointer;
+
+transition:.2s;
+
+}
+
+.face-grid .sticker:hover{
+
+transform:scale(1.05);
+
+border-color:#60a5fa;
+
+}
+
+@media(max-width:900px){
+
+#cubeEditor{
+
+grid-template-columns:1fr;
+
+}
+
+.face-grid{
+
+grid-template-columns:repeat(3,60px);
+
+grid-template-rows:repeat(3,60px);
+
+}
+
+.face-grid .sticker{
+
+width:60px;
+
+height:60px;
+
+}
+
+}
