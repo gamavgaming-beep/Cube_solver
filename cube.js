@@ -4,12 +4,12 @@
 ===================================== */
 
 const faces = [
-  { id: "face-U", name: "U", color: "white" },
-  { id: "face-R", name: "R", color: "red" },
-  { id: "face-F", name: "F", color: "green" },
-  { id: "face-D", name: "D", color: "yellow" },
-  { id: "face-L", name: "L", color: "orange" },
-  { id: "face-B", name: "B", color: "blue" }
+  { id: "face-U", color: "white", name: "U" },
+  { id: "face-R", color: "red", name: "R" },
+  { id: "face-F", color: "green", name: "F" },
+  { id: "face-D", color: "yellow", name: "D" },
+  { id: "face-L", color: "orange", name: "L" },
+  { id: "face-B", color: "blue", name: "B" }
 ];
 
 let selectedColor = "white";
