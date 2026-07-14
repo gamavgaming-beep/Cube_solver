@@ -259,3 +259,51 @@ padding:14px;
 }
 
 }
+
+...உன்னுடைய style.css code...
+
+}   <-- இது இப்போ இருக்கும் கடைசி line
+
+/* ===== Mobile Final Fix ===== */
+
+@media (max-width: 900px){
+
+header{
+height:70px;
+padding:10px 15px;
+}
+
+.logo{
+font-size:18px;
+}
+
+#themeBtn{
+width:45px;
+height:45px;
+font-size:20px;
+}
+
+main{
+padding:15px;
+}
+
+.colorPicker{
+width:100%;
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+gap:12px;
+margin:20px 0;
+order:2;
+}
+
+.leftPanel{
+display:flex;
+flex-direction:column;
+}
+
+.cubeContainer{
+order:1;
+}
+
+}
