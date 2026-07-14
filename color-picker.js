@@ -47,3 +47,75 @@ function getSelectedColor(){
     return activeColor;
 
 }
+
+/* =====================================
+   Rubik Solver Pro
+   color-picker.js - Part 2
+===================================== */
+
+function resetColorSelection(){
+
+    activeColor = "white";
+
+    selectedColor = "white";
+
+    colorButtons.forEach(button => {
+
+        button.classList.remove("active");
+
+        if(button.dataset.color === "white"){
+
+            button.classList.add("active");
+
+        }
+
+    });
+
+}
+
+function getColorCount(face){
+
+    const count = {
+        white:0,
+        yellow:0,
+        red:0,
+        orange:0,
+        blue:0,
+        green:0
+    };
+
+    cubeState[face].forEach(color=>{
+
+        if(count[color] !== undefined){
+
+            count[color]++;
+
+        }
+
+    });
+
+    return count;
+
+}
+
+function refreshCurrentFace(){
+
+    if(typeof loadFace === "function"){
+
+        loadFace(currentFace);
+
+    }
+
+}
+
+window.addEventListener("DOMContentLoaded",()=>{
+
+    const whiteButton=document.querySelector('.color[data-color="white"]');
+
+    if(whiteButton){
+
+        whiteButton.click();
+
+    }
+
+});
