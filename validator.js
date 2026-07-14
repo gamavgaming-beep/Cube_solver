@@ -1,79 +1,95 @@
 /* =====================================
    Rubik Solver Pro
-   validator.js
+   validator.js - Part 1
 ===================================== */
 
-const REQUIRED_COLORS = [
-    "white",
-    "yellow",
-    "red",
-    "orange",
-    "blue",
-    "green"
-];
+function validateCube(){
 
-function validateCubeState() {
-
-    const count = {};
-
-    REQUIRED_COLORS.forEach(color => {
-        count[color] = 0;
-    });
-
-    document.querySelectorAll(".sticker").forEach(sticker => {
-
-        const color = sticker.style.background;
-
-        if (count.hasOwnProperty(color)) {
-            count[color]++;
-        }
-
-    });
-
-    let valid = true;
-    let message = "";
-
-    REQUIRED_COLORS.forEach(color => {
-
-        if (count[color] !== 9) {
-
-            valid = false;
-
-            message += `${color}: ${count[color]}/9<br>`;
-
-        }
-
-    });
-
-    return {
-        valid,
-        message
+    const result = {
+        valid: true,
+        message: "Cube is valid."
     };
 
-}
+    const total = {
+        white:0,
+        yellow:0,
+        red:0,
+        orange:0,
+        blue:0,
+        green:0
+    };
 
-const validateButton = document.getElementById("validateBtn");
+    FACE_KEYS.forEach(face=>{
 
-if (validateButton) {
+        cubeState[face].forEach(color=>{
 
-    validateButton.addEventListener("click", () => {
+            if(total[color] !== undefined){
 
-        const result = validateCubeState();
+                total[color]++;
 
-        const output = document.getElementById("solutionOutput");
+            }
 
-        if (result.valid) {
-
-            output.innerHTML =
-                "✅ Cube color count is valid.<br>Ready to solve.";
-
-        } else {
-
-            output.innerHTML =
-                "❌ Invalid Cube.<br><br>" + result.message;
-
-        }
+        });
 
     });
 
+    for(const color in total){
+
+        if(total[color] !== 9){
+
+            result.valid = false;
+
+            result.message =
+            `${color.toUpperCase()} must appear exactly 9 times.`;
+
+            break;
+
+        }
+
+    }
+
+    return result;
+
 }
+
+/* =====================================
+   validator.js - Part 2
+===================================== */
+
+function updateValidationStatus(){
+
+    const status = document.getElementById("solveStatus");
+
+    if(!status) return;
+
+    const check = validateCube();
+
+    status.textContent = check.message;
+
+    if(check.valid){
+
+        status.style.color = "#22c55e";
+
+    }else{
+
+        status.style.color = "#ef4444";
+
+    }
+
+}
+
+/* =====================================
+   validator.js - Part 3
+===================================== */
+
+document.addEventListener("click",()=>{
+
+    updateValidationStatus();
+
+});
+
+window.addEventListener("DOMContentLoaded",()=>{
+
+    updateValidationStatus();
+
+});
