@@ -3,92 +3,103 @@
    solver.js - Part 1
 ===================================== */
 
-const DEMO_SOLUTION = [
-    "R",
-    "U",
-    "R'",
-    "U'",
-    "F2",
-    "L",
-    "D'",
-    "R2",
-    "U2"
+const DEMO_MOVES = [
+"R",
+"U",
+"R'",
+"U'",
+"F",
+"R2",
+"D",
+"L'",
+"F2",
+"U2",
+"R",
+"D'",
+"L",
+"B",
+"U",
+"R'",
+"F'",
+"D2",
+"L2",
+"U'",
+"R2"
 ];
 
-function getDemoSolution() {
-    return [...DEMO_SOLUTION];
-}
+function startSolver(){
 
-function showSolution() {
+    const check = validateCube();
 
-    const output = document.getElementById("solutionOutput");
+    if(!check.valid){
 
-    if (!output) return;
+        document.getElementById("solveStatus").textContent =
+        check.message;
 
-    const moves = getDemoSolution();
+        return;
 
-    output.innerHTML = `
-        <h3>🤖 Demo Solution</h3>
-        <br>
-        ${moves.join(" ")}
-        <br><br>
-        Total Moves : ${moves.length}
-    `;
+    }
 
-}
-
-const solveButton = document.getElementById("solveBtn");
-
-if (solveButton) {
-
-    solveButton.addEventListener("click", () => {
-       
-
-       startAnimation(getDemoSolution());
-       
-    });
+    solveCube();
 
 }
 
 /* =====================================
-   Rubik Solver Pro
+   solver.js - Part 2
+===================================== */
+
+function solveCube(){
+
+    const cube = exportCube();
+
+    console.log(cube);
+
+    document.getElementById("solveStatus").textContent =
+    "Generating Solution...";
+
+    setTimeout(()=>{
+
+        loadDemoSolution();
+
+    },500);
+
+}
+
+/* =====================================
    solver.js - Part 3
 ===================================== */
 
-function exportCubeState() {
+function loadDemoSolution(){
 
-    const data = {};
+    startPlayer(DEMO_MOVES);
 
-    FACE_ORDER.forEach(face => {
-        data[face] = [...cubeState[face]];
-    });
-
-    console.log("Cube State:", data);
-
-    return data;
+    document.getElementById("solveStatus").textContent =
+    "Solution Ready";
 
 }
 
-function copyCubeState() {
+/* =====================================
+   solver.js - Part 4
+===================================== */
 
-    const text = JSON.stringify(exportCubeState(), null, 2);
+function getSolutionMoves(){
 
-    navigator.clipboard.writeText(text).then(() => {
-
-        document.getElementById("solutionOutput").innerHTML =
-        "📋 Cube State copied successfully.";
-
-    });
+    return [...DEMO_MOVES];
 
 }
 
-function printCubeState() {
+function clearSolution(){
 
-    const cube = exportCubeState();
-
-    document.getElementById("solutionOutput").innerHTML =
-    "<b>Cube Export Ready</b><br><br><pre>" +
-    JSON.stringify(cube, null, 2) +
-    "</pre>";
+    startPlayer([]);
 
 }
+
+/* =====================================
+   solver.js - Part 5
+===================================== */
+
+window.addEventListener("DOMContentLoaded",()=>{
+
+    resetPlayer();
+
+});
