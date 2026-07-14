@@ -2,23 +2,20 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
 
-    <title>Rubik's Cube Solver Pro</title>
+<meta charset="UTF-8">
 
-    <link rel="stylesheet" href="style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="preconnect"
-          href="https://fonts.googleapis.com">
+<title>Rubik Solver Pro</title>
 
-    <link rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossorigin>
+<link rel="stylesheet" href="style.css">
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
-          rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 </head>
 
@@ -26,173 +23,86 @@
 
 <div class="background"></div>
 
-<header>
+<div class="app">
 
-    <div class="logo">
+<header class="topbar">
 
-        🧩 Rubik Solver Pro
+<div class="logo">
 
-    </div>
+🧩 Rubik Solver Pro
 
-    <nav>
+</div>
 
-        <button id="themeBtn">
-            🌙
-        </button>
+<button id="themeBtn">
 
-    </nav>
+🌙
+
+</button>
 
 </header>
 
 <main>
 
-<section class="leftPanel">
+<section id="wizard">
+
+<div class="wizard-header">
 
 <h2>
 
-3×3 Cube Editor
+Customize Your Cube
 
 </h2>
 
-<div class="cubeContainer">
+<p id="stepTitle">
 
-    <div id="cubeEditor">
-
-        <div id="face-U" class="cube-face"></div>
-        <div id="face-R" class="cube-face"></div>
-        <div id="face-F" class="cube-face"></div>
-        <div id="face-D" class="cube-face"></div>
-        <div id="face-L" class="cube-face"></div>
-        <div id="face-B" class="cube-face"></div>
-
-    </div>
-
-</div>
-
-<div class="colorPicker">
-
-<button class="color white"
-        data-color="white"></button>
-
-<button class="color yellow"
-        data-color="yellow"></button>
-
-<button class="color red"
-        data-color="red"></button>
-
-<button class="color orange"
-        data-color="orange"></button>
-
-<button class="color blue"
-        data-color="blue"></button>
-
-<button class="color green"
-        data-color="green"></button>
-
-</div>
-
-</section>
-
-<section class="rightPanel">
-
-<div class="card">
-
-<h3>
-
-Cube Controls
-
-</h3>
-
-<button id="validateBtn">
-
-Validate Cube
-
-</button>
-
-<button id="solveBtn">
-
-Solve Cube
-
-</button>
-
-<button id="resetBtn">
-
-Reset
-
-</button>
-
-<button id="scrambleBtn">
-
-Random Scramble
-
-</button>
-
-</div>
-
-<div class="card">
-
-<h3>
-
-Solution
-
-</h3>
-
-<div id="solutionOutput">
-
-Waiting...
-
-</div>
-
-</div>
-
-<div class="card">
-
-<h3>
-
-Statistics
-
-</h3>
-
-<p>
-
-Moves :
-<span id="moveCount">
-
-0
-
-</span>
-
-</p>
-
-<p>
-
-Time :
-<span id="timer">
-
-00:00
-
-</span>
+Step 1 / 6 • Top (U)
 
 </p>
 
 </div>
 
+<div class="progress">
+
+<div id="progressBar"></div>
+
+</div>
+
+<div class="cube-preview">
+
+<div id="faceEditor"></div>
+
+</div>
+
+<div class="color-picker">
+
+<button class="color white" data-color="white"></button>
+
+<button class="color yellow" data-color="yellow"></button>
+
+<button class="color red" data-color="red"></button>
+
+<button class="color orange" data-color="orange"></button>
+
+<button class="color blue" data-color="blue"></button>
+
+<button class="color green" data-color="green"></button>
+
+</div>
+
+<div class="wizard-buttons">
+
+<button id="prevBtn">
+
+⬅ Previous
+
+</button>
+
+<button id="nextBtn">
+
+Next ➜
+
+</button>
+
+</div>
+
 </section>
-
-</main>
-
-<footer>
-
-Rubik Solver Pro © 2026
-
-</footer>
-
-<script src="cube.js"></script>
-<script src="validator.js"></script>
-<script src="solver.js"></script>
-<script src="script.js"></script>
-<script src="animation.js"></script>
-<script src="app.js"></script>
-
-</body>
-</html>
