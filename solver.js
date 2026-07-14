@@ -48,3 +48,46 @@ if (solveButton) {
     });
 
 }
+
+/* =====================================
+   Rubik Solver Pro
+   solver.js - Part 3
+===================================== */
+
+function exportCubeState() {
+
+    const data = {};
+
+    FACE_ORDER.forEach(face => {
+        data[face] = [...cubeState[face]];
+    });
+
+    console.log("Cube State:", data);
+
+    return data;
+
+}
+
+function copyCubeState() {
+
+    const text = JSON.stringify(exportCubeState(), null, 2);
+
+    navigator.clipboard.writeText(text).then(() => {
+
+        document.getElementById("solutionOutput").innerHTML =
+        "📋 Cube State copied successfully.";
+
+    });
+
+}
+
+function printCubeState() {
+
+    const cube = exportCubeState();
+
+    document.getElementById("solutionOutput").innerHTML =
+    "<b>Cube Export Ready</b><br><br><pre>" +
+    JSON.stringify(cube, null, 2) +
+    "</pre>";
+
+}
