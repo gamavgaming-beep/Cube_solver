@@ -1,106 +1,66 @@
-
-/* ==========================================
+/* =====================================
    Rubik Solver Pro
    cube.js - Part 1
-========================================== */
+===================================== */
 
-const COLORS = [
-    "white",
-    "yellow",
-    "red",
-    "orange",
-    "blue",
-    "green"
+const faces = [
+    "U",
+    "R",
+    "F",
+    "D",
+    "L",
+    "B"
 ];
+
+const defaultColors = {
+    U: "white",
+    R: "red",
+    F: "green",
+    D: "yellow",
+    L: "orange",
+    B: "blue"
+};
 
 let selectedColor = "white";
 
-let cubeState = [];
+// Color Picker
+document.querySelectorAll(".color").forEach(btn => {
+    btn.addEventListener("click", () => {
+        selectedColor = btn.dataset.color;
+    });
+});
 
-function createSolvedCube() {
+// Create 54 Stickers
+faces.forEach(face => {
 
-    cubeState = [];
+    const faceDiv = document.getElementById("face-" + face);
 
-    for (let face = 0; face < 6; face++) {
+    if (!faceDiv) return;
 
-        cubeState.push([]);
+    faceDiv.innerHTML = `
+        <h3>${face}</h3>
+        <div class="face-grid"></div>
+    `;
 
-        for (let i = 0; i < 9; i++) {
+    const grid = faceDiv.querySelector(".face-grid");
 
-            cubeState[face].push(COLORS[face]);
-
-        }
-
-    }
-
-}
-
-function createCubeEditor() {
-
-    const editor = document.getElementById("cubeEditor");
-
-    editor.innerHTML = "";
-
-    for (let i = 0; i < 54; i++) {
+    for (let i = 0; i < 9; i++) {
 
         const sticker = document.createElement("div");
 
         sticker.className = "sticker";
 
-        sticker.dataset.index = i;
-
-        const face = Math.floor(i / 9);
-
-        const pos = i % 9;
+        sticker.style.background = defaultColors[face];
 
         sticker.dataset.face = face;
+        sticker.dataset.index = i;
 
-        sticker.dataset.pos = pos;
-
-        sticker.style.background = cubeState[face][pos];
-
-        sticker.onclick = () => {
-
-            cubeState[face][pos] = selectedColor;
-
+        sticker.addEventListener("click", () => {
             sticker.style.background = selectedColor;
+        });
 
-        };
-
-        editor.appendChild(sticker);
+        grid.appendChild(sticker);
 
     }
-
-}
-
-function initColorPicker() {
-
-    document.querySelectorAll(".color").forEach(btn => {
-
-        btn.onclick = () => {
-
-            selectedColor = btn.dataset.color;
-
-            document.querySelectorAll(".color").forEach(c => {
-
-                c.style.transform = "scale(1)";
-
-            });
-
-            btn.style.transform = "scale(1.2)";
-
-        };
-
-    });
-
-}
-
-window.addEventListener("DOMContentLoaded", () => {
-
-    createSolvedCube();
-
-    createCubeEditor();
-
-    initColorPicker();
 
 });
