@@ -140,3 +140,72 @@ function renderViewerCube(){
 
 }
 
+/* ==========================================
+   viewer.js - Part 5
+========================================== */
+
+function updateViewerState(cube){
+
+    if(!cube) return;
+
+    setViewerState(cube.export());
+
+}
+
+function refreshViewer(){
+
+    updateViewer();
+
+    if(window.engine){
+
+        updateViewerState(window.engine);
+
+    }
+
+}
+
+/* ==========================================
+   viewer.js - Part 6
+========================================== */
+
+function playMove(move){
+
+    if(!window.engine) return;
+
+    window.engine.move(move);
+
+    refreshViewer();
+
+}
+
+function playCurrentMove(){
+
+    if(solutionMoves.length===0) return;
+
+    playMove(solutionMoves[currentMoveIndex]);
+
+}
+
+/* ==========================================
+   viewer.js - Part 7
+========================================== */
+
+const oldNextMove = nextMove;
+
+nextMove = function(){
+
+    oldNextMove();
+
+    playCurrentMove();
+
+};
+
+const oldPreviousMove = previousMove;
+
+previousMove = function(){
+
+    oldPreviousMove();
+
+    // Undo support later
+};
+
