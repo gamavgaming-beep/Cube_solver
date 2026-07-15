@@ -155,8 +155,15 @@ function startRealSolver(){
 
     const facelets = cubeStateToFacelets();
 
-    console.log("Cube:", facelets);
+    console.log("Facelets:", facelets);
 
-    // Real min2phase call later
+    Cube.initSolver();
+
+    const cube = Cube.fromString(facelets);
+
+    const solution = cube.solve();
+
+    console.log("Solution:", solution);
+
 }
 
