@@ -319,3 +319,35 @@ transform:scale(1.15);
 box-shadow:0 0 20px rgba(255,255,255,.45);
 
 }
+
+/* ===== Viewer ===== */
+
+.viewer-grid{
+
+display:grid;
+
+grid-template-columns:repeat(3,60px);
+
+grid-template-rows:repeat(3,60px);
+
+gap:8px;
+
+justify-content:center;
+
+margin:20px auto;
+
+}
+
+.viewer-sticker{
+
+width:60px;
+
+height:60px;
+
+border-radius:10px;
+
+border:2px solid rgba(255,255,255,.35);
+
+transition:.25s;
+
+}
