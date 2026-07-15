@@ -1,29 +1,35 @@
 /* =====================================
    Rubik Solver Pro
-   validator.js - Part 1
+   validator.js
+   Version 2.0
 ===================================== */
 
-function validateCube(){
+"use strict";
 
-    const result = {
-        valid: true,
-        message: "Cube is valid."
-    };
+const COLORS = [
+    "white",
+    "yellow",
+    "red",
+    "orange",
+    "blue",
+    "green"
+];
 
-    const total = {
-        white:0,
-        yellow:0,
-        red:0,
-        orange:0,
-        blue:0,
-        green:0
-    };
+function countCubeColors(){
+
+    const total = {};
+
+    COLORS.forEach(color=>{
+
+        total[color]=0;
+
+    });
 
     FACE_KEYS.forEach(face=>{
 
         cubeState[face].forEach(color=>{
 
-            if(total[color] !== undefined){
+            if(total.hasOwnProperty(color)){
 
                 total[color]++;
 
@@ -33,16 +39,32 @@ function validateCube(){
 
     });
 
-    for(const color in total){
+    return total;
 
-        if(total[color] !== 9){
+}
 
-            result.valid = false;
+function validateCube(){
 
-            result.message =
-            `${color.toUpperCase()} must appear exactly 9 times.`;
+    const count = countCubeColors();
 
-            break;
+    const result = {
+
+        valid:true,
+
+        message:"Cube Ready"
+
+    };
+
+    for(const color of COLORS){
+
+        if(count[color]!==9){
+
+            result.valid=false;
+
+            result.message=
+            `${color.toUpperCase()} : ${count[color]}/9`;
+
+            return result;
 
         }
 
@@ -52,44 +74,52 @@ function validateCube(){
 
 }
 
-/* =====================================
-   validator.js - Part 2
-===================================== */
-
 function updateValidationStatus(){
 
-    const status = document.getElementById("solveStatus");
+    const status =
+    document.getElementById("solveStatus");
 
     if(!status) return;
 
-    const check = validateCube();
+    const check =
+    validateCube();
 
-    status.textContent = check.message;
+    status.textContent =
+    check.message;
 
-    if(check.valid){
-
-        status.style.color = "#22c55e";
-
-    }else{
-
-        status.style.color = "#ef4444";
-
-    }
+    status.style.color =
+    check.valid
+    ? "#22c55e"
+    : "#ef4444";
 
 }
 
-/* =====================================
-   validator.js - Part 3
-===================================== */
+function isCubeReady(){
 
-document.addEventListener("click",()=>{
+    return validateCube().valid;
 
-    updateValidationStatus();
+}
 
-});
+window.addEventListener(
 
-window.addEventListener("DOMContentLoaded",()=>{
+    "DOMContentLoaded",
 
-    updateValidationStatus();
+    ()=>{
 
-});
+        updateValidationStatus();
+
+    }
+
+);
+
+document.addEventListener(
+
+    "click",
+
+    ()=>{
+
+        updateValidationStatus();
+
+    }
+
+);
