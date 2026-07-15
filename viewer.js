@@ -172,7 +172,7 @@ function playMove(move){
 
     if(!window.engine) return;
 
-    window.engine.move(move);
+    // window.engine.move(move);;
 
     refreshViewer();
 
