@@ -6,7 +6,7 @@
 
 "use strict";
 
-const COLORS = [
+const VALIDATOR_COLORS = [
     "white",
     "yellow",
     "red",
@@ -19,7 +19,7 @@ function countCubeColors(){
 
     const total = {};
 
-    COLORS.forEach(color=>{
+    VALIDATOR_COLORS.forEach(color=>{
 
         total[color]=0;
 
@@ -55,7 +55,7 @@ function validateCube(){
 
     };
 
-    for(const color of COLORS){
+    for(const color of VALIDATOR_COLORS){
 
         if(count[color]!==9){
 
