@@ -156,12 +156,6 @@ function refreshViewer(){
 
     updateViewer();
 
-    if(window.engine){
-
-        updateViewerState(window.engine);
-
-    }
-
 }
 
 /* ==========================================
@@ -169,10 +163,6 @@ function refreshViewer(){
 ========================================== */
 
 function playMove(move){
-
-    if(!window.engine) return;
-
-    // window.engine.move(move);;
 
     refreshViewer();
 
@@ -208,4 +198,5 @@ previousMove = function(){
 
     // Undo support later
 };
+
 
