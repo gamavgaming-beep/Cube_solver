@@ -103,3 +103,60 @@ window.addEventListener("DOMContentLoaded",()=>{
     resetPlayer();
 
 });
+
+
+/* =====================================
+   solver.js - Part 6
+   Facelet Converter
+===================================== */
+
+function cubeStateToFacelets() {
+
+    const map = {
+        white: "U",
+        red: "R",
+        green: "F",
+        yellow: "D",
+        orange: "L",
+        blue: "B"
+    };
+
+    let result = "";
+
+    FACE_KEYS.forEach(face => {
+
+        cubeState[face].forEach(color => {
+
+            result += map[color];
+
+        });
+
+    });
+
+    return result;
+
+}
+
+/* =====================================
+   solver.js - Part 7
+===================================== */
+
+function showFacelets(){
+
+    console.log(cubeStateToFacelets());
+
+}
+
+/* =====================================
+   solver.js - Part 8
+===================================== */
+
+function startRealSolver(){
+
+    const facelets = cubeStateToFacelets();
+
+    console.log("Cube:", facelets);
+
+    // Real min2phase call later
+}
+
