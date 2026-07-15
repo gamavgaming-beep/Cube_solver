@@ -1,202 +1,122 @@
-/* =====================================
-   Rubik Solver Pro
-   viewer.js - Part 1
-===================================== */
-
-let solutionMoves = [];
-
-let currentMoveIndex = 0;
-
-function loadSolution(moves){
-
-    solutionMoves = [...moves];
-
-    currentMoveIndex = 0;
-
-    updateViewer();
-
-}
-
-function updateViewer(){
-
-    const moveInfo =
-    document.getElementById("moveInfo");
-
-    const currentMove =
-    document.getElementById("currentMove");
-
-    if(solutionMoves.length===0){
-
-        moveInfo.textContent="Move 0 / 0";
-
-        currentMove.textContent="-";
-
-        return;
-
-    }
-
-    moveInfo.textContent=
-    `Move ${currentMoveIndex+1} / ${solutionMoves.length}`;
-
-    currentMove.textContent=
-    solutionMoves[currentMoveIndex];
-
-}
-
-/* =====================================
-   viewer.js - Part 2
-===================================== */
-
-function nextMove(){
-
-    if(currentMoveIndex < solutionMoves.length-1){
-
-        currentMoveIndex++;
-
-        updateViewer();
-
-    }
-
-}
-
-function previousMove(){
-
-    if(currentMoveIndex>0){
-
-        currentMoveIndex--;
-
-        updateViewer();
-
-    }
-
-}
-
-/* =====================================
-   viewer.js - Part 3
-===================================== */
-
-window.addEventListener("DOMContentLoaded",()=>{
-
-    document
-    .getElementById("moveNext")
-    ?.addEventListener("click",nextMove);
-
-    document
-    .getElementById("movePrev")
-    ?.addEventListener("click",previousMove);
-
-});
-
 /* ==========================================
-   viewer.js - Part 4
-   Cube Viewer Renderer
+   Rubik Solver Pro
+   viewer.js
+   Part 1
+   Cube Viewer Core
 ========================================== */
 
-let viewerState = null;
+"use strict";
 
-function setViewerState(state){
+/* ---------- Viewer State ---------- */
 
-    viewerState = JSON.parse(JSON.stringify(state));
+let viewerCube = null;
+let solutionMoves = [];
+let currentMoveIndex = 0;
+
+/* ---------- Colors ---------- */
+
+const FACE_COLORS = {
+
+    U: "#ffffff",
+    R: "#ff3b30",
+    F: "#34c759",
+    D: "#ffd60a",
+    L: "#ff9500",
+    B: "#007aff"
+
+};
+
+/* ---------- Create Solved Cube ---------- */
+
+function createViewerCube(){
+
+    viewerCube = Cube.fromString(
+
+        "UUUUUUUUU" +
+        "RRRRRRRRR" +
+        "FFFFFFFFF" +
+        "DDDDDDDDD" +
+        "LLLLLLLLL" +
+        "BBBBBBBBB"
+
+    );
+
+}
+
+/* ---------- Load Cube ---------- */
+
+function loadViewerCube(facelets){
+
+    viewerCube = Cube.fromString(facelets);
+
+}
+
+/* ---------- Reset ---------- */
+
+function resetViewer(){
+
+    createViewerCube();
 
     renderViewerCube();
 
 }
 
+/* ---------- Render ---------- */
+
 function renderViewerCube(){
 
-    const container = document.getElementById("viewerCube");
+    const container =
+    document.getElementById("viewerCube");
 
     if(!container) return;
 
-    container.innerHTML = "";
+    if(!viewerCube){
 
-    if(!viewerState){
-
-        container.innerHTML = "<p>No Cube Loaded</p>";
-
-        return;
+        createViewerCube();
 
     }
 
-    const face = viewerState[2];
+    container.innerHTML="";
 
-    const grid = document.createElement("div");
+    const facelets =
+    viewerCube.asString();
 
-    grid.className = "viewer-grid";
+    const grid =
+    document.createElement("div");
 
-    face.forEach(color=>{
+    grid.className="viewer-grid";
 
-        const sticker = document.createElement("div");
+    for(let i=0;i<54;i++){
 
-        sticker.className = "viewer-sticker";
+        const sticker =
+        document.createElement("div");
 
-        sticker.style.background = color;
+        sticker.className =
+        "viewer-sticker";
+
+        sticker.style.background =
+        FACE_COLORS[facelets[i]];
 
         grid.appendChild(sticker);
 
-    });
+    }
 
     container.appendChild(grid);
 
 }
 
-/* ==========================================
-   viewer.js - Part 5
-========================================== */
+/* ---------- Startup ---------- */
 
-function updateViewerState(cube){
+window.addEventListener(
 
-    if(!cube) return;
+    "DOMContentLoaded",
 
-    setViewerState(cube.export());
+    ()=>{
 
-}
+        createViewerCube();
 
-function refreshViewer(){
+        renderViewerCube();
 
-    updateViewer();
+    }
 
-}
-
-/* ==========================================
-   viewer.js - Part 6
-========================================== */
-
-function playMove(move){
-
-    refreshViewer();
-
-}
-
-function playCurrentMove(){
-
-    if(solutionMoves.length===0) return;
-
-    playMove(solutionMoves[currentMoveIndex]);
-
-}
-
-/* ==========================================
-   viewer.js - Part 7
-========================================== */
-
-const oldNextMove = nextMove;
-
-nextMove = function(){
-
-    oldNextMove();
-
-    playCurrentMove();
-
-};
-
-const oldPreviousMove = previousMove;
-
-previousMove = function(){
-
-    oldPreviousMove();
-
-    // Undo support later
-};
-
-
+);
