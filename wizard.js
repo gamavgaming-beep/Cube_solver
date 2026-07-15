@@ -187,6 +187,33 @@ function exportCube(){
 
 }
 
+function getFaceletString(){
+
+    const map = {
+        white: "U",
+        red: "R",
+        green: "F",
+        yellow: "D",
+        orange: "L",
+        blue: "B"
+    };
+
+    let facelets = "";
+
+    FACE_KEYS.forEach(face => {
+
+        cubeState[face].forEach(color => {
+
+            facelets += map[color];
+
+        });
+
+    });
+
+    return facelets;
+
+}
+
 function printCube(){
 
     console.log(exportCube());
