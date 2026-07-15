@@ -86,3 +86,57 @@ window.addEventListener("DOMContentLoaded",()=>{
     ?.addEventListener("click",previousMove);
 
 });
+
+/* ==========================================
+   viewer.js - Part 4
+   Cube Viewer Renderer
+========================================== */
+
+let viewerState = null;
+
+function setViewerState(state){
+
+    viewerState = JSON.parse(JSON.stringify(state));
+
+    renderViewerCube();
+
+}
+
+function renderViewerCube(){
+
+    const container = document.getElementById("viewerCube");
+
+    if(!container) return;
+
+    container.innerHTML = "";
+
+    if(!viewerState){
+
+        container.innerHTML = "<p>No Cube Loaded</p>";
+
+        return;
+
+    }
+
+    const face = viewerState[2];
+
+    const grid = document.createElement("div");
+
+    grid.className = "viewer-grid";
+
+    face.forEach(color=>{
+
+        const sticker = document.createElement("div");
+
+        sticker.className = "viewer-sticker";
+
+        sticker.style.background = color;
+
+        grid.appendChild(sticker);
+
+    });
+
+    container.appendChild(grid);
+
+}
+
