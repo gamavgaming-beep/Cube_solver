@@ -122,19 +122,41 @@ function showFacelets(){
    solver.js - Part 8
 ===================================== */
 
-function startRealSolver(){
+function startRealSolver() {
 
-    const facelets = cubeStateToFacelets();
+    try {
 
-    console.log("Facelets:", facelets);
+        const facelets = cubeStateToFacelets();
 
-    Cube.initSolver();
+        console.log("Facelets:", facelets);
 
-    const cube = Cube.fromString(facelets);
+        Cube.initSolver();
 
-    const solution = cube.solve();
+        const cube = Cube.fromString(facelets);
 
-    console.log("Solution:", solution);
+        const solution = cube.solve();
+
+        if (!solution) {
+            document.getElementById("solveStatus").textContent =
+                "Solver Failed";
+            return;
+        }
+
+        const moves = solution.trim().split(" ");
+
+        startPlayer(moves);
+
+        document.getElementById("solveStatus").textContent =
+            "Solution Ready";
+
+    } catch (e) {
+
+        console.error(e);
+
+        document.getElementById("solveStatus").textContent =
+            "Error";
+
+    }
 
 }
 
