@@ -319,3 +319,12 @@ CubeEngine.prototype.move = function(move){
 
 
 
+/* ============================================
+   Initialize Cube Engine
+============================================ */
+
+window.engine = new CubeEngine();
+
+window.engine.initializeHistory();
+
+console.log("Cube Engine Ready");
