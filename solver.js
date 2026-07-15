@@ -50,18 +50,10 @@ function startSolver(){
 
 function solveCube(){
 
-    const cube = exportCube();
-
-    console.log(cube);
-
     document.getElementById("solveStatus").textContent =
     "Generating Solution...";
 
-    setTimeout(()=>{
-
-        loadDemoSolution();
-
-    },500);
+    startRealSolver();
 
 }
 
@@ -166,4 +158,5 @@ function startRealSolver(){
     console.log("Solution:", solution);
 
 }
+
 
