@@ -102,30 +102,9 @@ window.addEventListener("DOMContentLoaded",()=>{
    Facelet Converter
 ===================================== */
 
-function cubeStateToFacelets() {
+function cubeStateToFacelets(){
 
-    const map = {
-        white: "U",
-        red: "R",
-        green: "F",
-        yellow: "D",
-        orange: "L",
-        blue: "B"
-    };
-
-    let result = "";
-
-    FACE_KEYS.forEach(face => {
-
-        cubeState[face].forEach(color => {
-
-            result += map[color];
-
-        });
-
-    });
-
-    return result;
+    return getFaceletString();
 
 }
 
