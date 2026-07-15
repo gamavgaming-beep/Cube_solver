@@ -100,3 +100,84 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
 });
+
+/* =====================================
+   Rubik Solver Pro
+   app.js - Part 3
+===================================== */
+
+function showWizard(){
+
+    wizard.classList.remove("hidden");
+
+    solveScreen.classList.add("hidden");
+
+}
+
+function showSolveScreen(){
+
+    wizard.classList.add("hidden");
+
+    solveScreen.classList.remove("hidden");
+
+}
+
+function resetApplication(){
+
+    currentFace = 0;
+
+    updateWizardUI();
+
+    showWizard();
+
+    if(typeof resetCube === "function"){
+
+        resetCube();
+
+    }
+
+    if(typeof resetPlayer === "function"){
+
+        resetPlayer();
+
+    }
+
+    document.getElementById("solveStatus").textContent =
+    "Waiting...";
+
+}
+
+/* =====================================
+   Rubik Solver Pro
+   app.js - Part 4
+===================================== */
+
+window.addEventListener("keydown",(e)=>{
+
+    if(e.key==="ArrowRight"){
+
+        nextBtn.click();
+
+    }
+
+    if(e.key==="ArrowLeft"){
+
+        prevBtn.click();
+
+    }
+
+});
+
+/* =====================================
+   Rubik Solver Pro
+   app.js - Part 5
+===================================== */
+
+function updateStatistics(){
+
+    document.getElementById("currentStep").textContent =
+    currentFace + 1;
+
+}
+
+setInterval(updateStatistics,100);
