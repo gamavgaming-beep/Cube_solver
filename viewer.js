@@ -350,3 +350,90 @@ function getCurrentMove() {
     return solutionMoves[currentMoveIndex];
 
 }
+
+/* =====================================
+   viewer.js - Part 6
+   Viewer Animation Engine
+===================================== */
+
+function updateViewerButtons() {
+
+    const nextBtn = document.getElementById("moveNext");
+    const prevBtn = document.getElementById("movePrev");
+
+    if (prevBtn) {
+        prevBtn.disabled = !hasPreviousMove();
+    }
+
+    if (nextBtn) {
+        nextBtn.disabled = !hasNextMove();
+    }
+
+}
+
+const oldUpdateViewer = updateViewer;
+
+updateViewer = function () {
+
+    oldUpdateViewer();
+
+    updateViewerButtons();
+
+};
+
+window.addEventListener("DOMContentLoaded", () => {
+
+    updateViewerButtons();
+
+});
+
+/* =====================================
+   viewer.js - Part 7
+   Viewer Final
+===================================== */
+
+function clearViewer() {
+
+    solutionMoves = [];
+
+    currentMoveIndex = 0;
+
+    viewerState.moves = [];
+
+    viewerState.current = 0;
+
+    updateViewer();
+
+}
+
+function loadViewer(moves) {
+
+    setViewerMoves(moves);
+
+    updateViewer();
+
+}
+
+window.viewer = {
+
+    load: loadViewer,
+
+    clear: clearViewer,
+
+    refresh: refreshViewer,
+
+    currentMove: getCurrentMove,
+
+    next: playNextMove,
+
+    previous: playPreviousMove
+
+};
+
+window.addEventListener("DOMContentLoaded", () => {
+
+    initializeViewer();
+
+    updateViewer();
+
+});
