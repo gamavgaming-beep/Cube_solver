@@ -293,3 +293,60 @@ window.addEventListener("DOMContentLoaded", () => {
     initializeViewer();
 
 });
+
+/* =====================================
+   viewer.js - Part 5
+   Viewer Controls
+===================================== */
+
+function playCurrentMove() {
+
+    if (solutionMoves.length === 0) {
+
+        return;
+
+    }
+
+    refreshViewer();
+
+}
+
+function playNextMove() {
+
+    nextMove();
+
+    playCurrentMove();
+
+}
+
+function playPreviousMove() {
+
+    previousMove();
+
+    playCurrentMove();
+
+}
+
+function hasNextMove() {
+
+    return currentMoveIndex < solutionMoves.length - 1;
+
+}
+
+function hasPreviousMove() {
+
+    return currentMoveIndex > 0;
+
+}
+
+function getCurrentMove() {
+
+    if (solutionMoves.length === 0) {
+
+        return "-";
+
+    }
+
+    return solutionMoves[currentMoveIndex];
+
+}
