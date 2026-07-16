@@ -182,3 +182,37 @@ function lastMove() {
     goToMove(solutionMoves.length - 1);
 
 }
+
+/* =====================================
+   viewer.js - Part 3
+   Button Events
+===================================== */
+
+window.addEventListener("DOMContentLoaded", () => {
+
+    const nextBtn = document.getElementById("moveNext");
+    const prevBtn = document.getElementById("movePrev");
+
+    if (nextBtn) {
+
+        nextBtn.onclick = () => {
+
+            nextMove();
+
+        };
+
+    }
+
+    if (prevBtn) {
+
+        prevBtn.onclick = () => {
+
+            previousMove();
+
+        };
+
+    }
+
+    updateViewer();
+
+});
