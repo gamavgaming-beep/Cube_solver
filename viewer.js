@@ -216,3 +216,80 @@ window.addEventListener("DOMContentLoaded", () => {
     updateViewer();
 
 });
+
+/* =====================================
+   viewer.js - Part 4
+   Viewer State Engine
+===================================== */
+
+let viewerState = {
+
+    loaded: false,
+
+    moves: [],
+
+    current: 0
+
+};
+
+function initializeViewer() {
+
+    viewerState.loaded = true;
+
+    viewerState.moves = [];
+
+    viewerState.current = 0;
+
+    updateViewer();
+
+}
+
+function setViewerMoves(moves) {
+
+    if (!Array.isArray(moves)) {
+
+        moves = [];
+
+    }
+
+    viewerState.moves = [...moves];
+
+    viewerState.current = 0;
+
+    solutionMoves = [...moves];
+
+    currentMoveIndex = 0;
+
+    updateViewer();
+
+}
+
+function refreshViewer() {
+
+    viewerState.current = currentMoveIndex;
+
+    updateViewer();
+
+}
+
+function resetViewer() {
+
+    viewerState.loaded = false;
+
+    viewerState.moves = [];
+
+    viewerState.current = 0;
+
+    solutionMoves = [];
+
+    currentMoveIndex = 0;
+
+    updateViewer();
+
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+
+    initializeViewer();
+
+});
