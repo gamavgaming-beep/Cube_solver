@@ -120,3 +120,65 @@ window.addEventListener(
     }
 
 );
+
+/* =====================================
+   viewer.js - Part 2
+   Navigation Engine
+===================================== */
+
+function nextMove() {
+
+    if (solutionMoves.length === 0) return;
+
+    if (currentMoveIndex < solutionMoves.length - 1) {
+
+        currentMoveIndex++;
+
+        updateViewer();
+
+    }
+
+}
+
+function previousMove() {
+
+    if (solutionMoves.length === 0) return;
+
+    if (currentMoveIndex > 0) {
+
+        currentMoveIndex--;
+
+        updateViewer();
+
+    }
+
+}
+
+function goToMove(index) {
+
+    if (solutionMoves.length === 0) return;
+
+    if (index < 0) index = 0;
+
+    if (index >= solutionMoves.length)
+        index = solutionMoves.length - 1;
+
+    currentMoveIndex = index;
+
+    updateViewer();
+
+}
+
+function firstMove() {
+
+    goToMove(0);
+
+}
+
+function lastMove() {
+
+    if (solutionMoves.length === 0) return;
+
+    goToMove(solutionMoves.length - 1);
+
+}
